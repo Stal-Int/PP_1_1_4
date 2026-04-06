@@ -37,8 +37,6 @@ public class Util {
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
                 configuration.setProperty("hibernate.show_sql", "true");
                 configuration.setProperty("hibernate.hbm2ddl.auto", "none");
-
-
                 configuration.addAnnotatedClass(jm.task.core.jdbc.model.User.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
@@ -55,8 +53,9 @@ public class Util {
     }
 
     public static void closeSessionFactory() {
-        if (sessionFactory != null) {
+        if (sessionFactory != null && !sessionFactory.isClosed()) {
             sessionFactory.close();
+            System.out.println("SessionFactory закрыт");
         }
     }
 }
